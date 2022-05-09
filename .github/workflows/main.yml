@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello kikit action step
         id: hellokikit
-        uses: jazzychad/PanelizePublic
+        uses: jazzychad/PanelizePublic@v1
       # Use the output from the `hellokikit` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hellokikit.outputs.time }}"
