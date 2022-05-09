@@ -1,0 +1,27 @@
+name: KiKit Panelize
+
+on:
+  workflow_call:
+    inputs:
+      pcbfile:
+        required: true
+
+jobs:
+  panelize_job:
+    name: KiKit Panelize Job
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout Repo
+        uses: actions/checkout@v3
+      - id: panelize
+        name: Panelize the Board
+        run: kikit panelize --layout 'grid; rows: 2; cols: 2;' ${{ inputs.pcbfile }}   panel.kicad_pcb
+      - id: artifact
+        name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: panel
+          path: panel.kicad_pcb
+
+        
