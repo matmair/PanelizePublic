@@ -1,3 +1,5 @@
+name: KiKit Stuff
+
 on: [push]
 
 jobs:
