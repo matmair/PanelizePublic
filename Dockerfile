@@ -1,0 +1,1 @@
+FROM yaqwsx/kikit:latest
