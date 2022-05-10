@@ -13,8 +13,8 @@ outputs:
   time: # id of output
     description: 'The time we greeted kikit'
 runs:
-  using: "composite"
-  container: yaqwsx/kikit:latest
+  using: "docker"
+  image: yaqwsx/kikit:latest
   steps:
     - id: checkout
       name: Checkout Repo
