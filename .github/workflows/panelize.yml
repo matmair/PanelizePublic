@@ -5,6 +5,7 @@ on:
     inputs:
       pcbfile:
         required: true
+        type: string
 
 jobs:
   panelize_job:
