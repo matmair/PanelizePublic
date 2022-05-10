@@ -3,6 +3,10 @@ name: KiKit Panelize
 on:
   workflow_call:
     inputs:
+      panel_args:
+        required: true
+        type: string
+        default: "--layout \"grid; rows: 2; cols: 2;\""
       pcbfile:
         required: true
         type: string
@@ -18,10 +22,10 @@ jobs:
         uses: actions/checkout@v3
       - id: panelize
         name: Panelize the Board
-        run: "kikit panelize --layout \"grid; rows: 2; cols: 2;\" ${{ inputs.pcbfile }}   panel.kicad_pcb"
+        run: "kikit panelize ${{ inputs.panel_args }} ${{ inputs.pcbfile }} panel.kicad_pcb"
       - id: artifact
         name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: panel
+          name: panel.kicad_pcb
           path: panel.kicad_pcb
