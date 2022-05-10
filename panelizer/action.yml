@@ -16,15 +16,6 @@ runs:
   using: "docker"
   image: yaqwsx/kikit:latest
   steps:
-    - id: checkout
-      name: Checkout Repo
-      uses: actions/checkout@v3
     - id: panelize
       name: Panelize the Board
       run: "kikit panelize ${{ inputs.panel_args }} ${{ inputs.pcbfile }} panel.kicad_pcb"
-    - id: artifact
-      name: Upload Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: panel.kicad_pcb
-        path: panel.kicad_pcb
