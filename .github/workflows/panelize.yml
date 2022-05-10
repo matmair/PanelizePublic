@@ -11,6 +11,7 @@ jobs:
   panelize_job:
     name: KiKit Panelize Job
     runs-on: ubuntu-latest
+    container: yaqwsx/kikit:latest
     steps:
       - id: checkout
         name: Checkout Repo
