@@ -1,14 +1,30 @@
 # action.yml
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Palenizer'
+description: 'Panelize a KiCad design with KiKit'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  panel_args:
     required: true
-    default: 'KIKIT'
+    type: string
+    default: "--layout \"grid; rows: 2; cols: 2;\""
+  pcbfile:
+    required: true
+    type: string
 outputs:
   time: # id of output
     description: 'The time we greeted kikit'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  container: yaqwsx/kikit:latest
+  steps:
+    - id: checkout
+      name: Checkout Repo
+      uses: actions/checkout@v3
+    - id: panelize
+      name: Panelize the Board
+      run: "kikit panelize ${{ inputs.panel_args }} ${{ inputs.pcbfile }} panel.kicad_pcb"
+    - id: artifact
+      name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: panel.kicad_pcb
+        path: panel.kicad_pcb
