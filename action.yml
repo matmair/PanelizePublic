@@ -1,5 +1,5 @@
 # action.yml
-name: 'Palenizer'
+name: 'Panelizer'
 description: 'Panelize a KiCad design with KiKit'
 inputs:
   panel_args:
