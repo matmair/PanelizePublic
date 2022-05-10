@@ -1,0 +1,18 @@
+# action.yml
+name: 'Panelizer'
+description: 'Panelize a KiCad design with KiKit'
+inputs:
+  panel_args:
+    required: true
+    type: string
+    default: "--layout \"grid; rows: 2; cols: 2;\""
+  pcbfile:
+    required: true
+    type: string
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.panel_args }}
+    - ${{ inputs.pcbfile }}

@@ -1,14 +1,30 @@
 # action.yml
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Panelizer'
+description: 'Panelize a KiCad design with KiKit'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  panel_args:
     required: true
-    default: 'KIKIT'
-outputs:
-  time: # id of output
-    description: 'The time we greeted kikit'
+    type: string
+    default: "--layout \"grid; rows: 2; cols: 2;\""
+  pcbfile:
+    required: true
+    type: string
+  
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  steps:
+    - id: checkout
+      name: Checkout Repo
+      uses: actions/checkout@v3
+    - id: panelize
+      name: Panelize the Board
+      uses: matmair/PanelizePublic/panelizer/@main
+      with:
+        panel_args: ${{ inputs.panel_args }}
+        pcbfile: ${{ inputs.pcbfile }}
+    - id: artifact
+      name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: panel.kicad_pcb
+        path: panel.kicad_pcb
