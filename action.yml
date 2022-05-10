@@ -1,0 +1,28 @@
+# action.yml
+name: 'Panelizer'
+description: 'Panelize a KiCad design with KiKit'
+inputs:
+  panel_args:
+    required: true
+    type: string
+    default: "--layout \"grid; rows: 2; cols: 2;\""
+  pcbfile:
+    required: true
+    type: string
+  
+runs:
+  using: "composite"
+  steps:
+    - id: checkout
+      name: Checkout Repo
+      uses: actions/checkout@v3
+    - id: panelize
+      name: Panelize the Board
+      uses: ./panelizer/action.yml
+      run: "kikit panelize ${{ inputs.panel_args }} ${{ inputs.pcbfile }} panel.kicad_pcb"
+    - id: artifact
+      name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: panel.kicad_pcb
+        path: panel.kicad_pcb
